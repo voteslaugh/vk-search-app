@@ -1,0 +1,10 @@
+<div>
+  <tui-input [(ngModel)]="userId" placeholder="Enter User ID"></tui-input>
+  <button tuiButton type="button" (click)="getUserProfile()">
+    Get Profile Info
+  </button>
+</div>
+<div *ngIf="userProfile">
+  <h3>User Profile:</h3>
+  <p>Name: {{ userProfile.first_name }} {{ userProfile.last_name }}</p>
+</div>
