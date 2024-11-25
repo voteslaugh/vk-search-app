@@ -1,10 +1,10 @@
-// user-friends.component.ts
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnChanges } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { VkApiService } from '../../services/vk-api.service';
-import { TuiInputModule } from '@taiga-ui/kit';
 import { TuiButtonModule } from '@taiga-ui/core';
+
+import { TuiInputModule } from '@taiga-ui/kit';
+import { VkApiService } from '../../services/vk-api.service';
 
 @Component({
   selector: 'app-user-friends',
@@ -13,17 +13,21 @@ import { TuiButtonModule } from '@taiga-ui/core';
   templateUrl: './user-friends.component.html',
   styleUrls: ['./user-friends.component.css']
 })
-export class UserFriendsComponent implements OnInit {
+export class UserFriendsComponent implements OnChanges {
   friends: any[] = [];
-  userId: string = '';
+  @Input() userId!: string;
 
   constructor(private vkApi: VkApiService) {}
 
-  ngOnInit(): void {}
+  ngOnChanges(): void {
+    if (this.userId) {
+      this.getUserFriends();
+    }
+  }
 
   getUserFriends(): void {
     this.vkApi.getUserFriends(this.userId).subscribe(data => {
-      this.friends = data.response.items;
+      this.friends = data?.response?.items || [];
     });
   }
 }

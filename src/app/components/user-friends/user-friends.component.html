@@ -1,14 +1,6 @@
-<div>
-  <tui-input [(ngModel)]="userId" placeholder="Enter User ID"></tui-input>
-  <button tuiButton type="button" (click)="getUserFriends()">
-    Get Friends List
-  </button>
-</div>
-<div *ngIf="friends.length">
-  <h3>Friends List:</h3>
+<div *ngIf="friends.length > 0">
+  <h2>Friends List:</h2>
   <ul>
-    <li *ngFor="let friend of friends">
-      {{ friend.first_name }} {{ friend.last_name }}
-    </li>
+    <li *ngFor="let friend of friends">{{ friend.name }}</li>
   </ul>
 </div>
