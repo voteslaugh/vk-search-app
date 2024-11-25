@@ -2,24 +2,31 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
+import { VKApiResponse } from '../models/profile-response'; // Импорт интерфейса
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class VkApiService {
-  private apiUrl = environment.apiUrl;
-  private accessToken = environment.accessToken;
-  private apiVersion = environment.apiVersion;
 
   constructor(private http: HttpClient) {}
 
-  getUserInfo(userId: string): Observable<any> {
-    const url = `${this.apiUrl}/users.get?user_ids=${userId}&access_token=${this.accessToken}&v=${this.apiVersion}`;
-    return this.http.get(url);
+  getUserFriends(userId: string): Observable<any> {
+    const params = {
+      user_id: userId,
+      access_token: environment.accessToken,
+      v: environment.apiVersion
+    };
+    return this.http.get(`${environment.apiUrl}/friends.get`, { params });
   }
 
-  getUserFriends(userId: string): Observable<any> {
-    const url = `${this.apiUrl}/friends.get?user_id=${userId}&access_token=${this.accessToken}&v=${this.apiVersion}`;
-    return this.http.get(url);
+  getUsersInfo(userIds: string): Observable<VKApiResponse> {
+    const params = {
+      user_ids: userIds,
+      access_token: environment.accessToken,
+      v: environment.apiVersion,
+      fields: 'first_name,last_name,bdate,city,sex,domain,photo_100'
+    };
+    return this.http.get<VKApiResponse>(`${environment.apiUrl}/users.get`, { params });
   }
 }

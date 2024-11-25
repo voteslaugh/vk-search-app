@@ -1,12 +1,12 @@
 <div class="app-container">
   <div class="input-container">
-    <tui-input [(ngModel)]="inputUserId" placeholder="Enter User ID"></tui-input>
+    <tui-input [(ngModel)]="inputUserId" placeholder="Enter User Id"></tui-input>
   </div>
-  
+
   <div class="buttons">
     <button tuiButton type="button" (click)="confirmUserId()">Confirm User ID</button>
-    <button tuiButton type="button" (click)="showProfileInfo()">Get Profile Info</button>
-    <button tuiButton type="button" (click)="showFriendsList()">Get Friends List</button>
+    <button tuiButton type="button" (click)="showProfileInfo()" [disabled]="!confirmedUserId">Get Profile Info</button>
+    <button tuiButton type="button" (click)="showFriendsList()" [disabled]="!confirmedUserId">Get Friends List</button>
   </div>
 
   <div class="info-sections">

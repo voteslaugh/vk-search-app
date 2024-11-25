@@ -1,4 +1,9 @@
 <div *ngIf="userProfile">
   <h2>User Profile:</h2>
-  <p>Name: {{ userProfile.name }}</p>
+  <p>Full Name: {{ userProfile.first_name }} {{ userProfile.last_name }}</p>
+  <p>Birthday: {{ userProfile.bdate }}</p>
+  <p>City: {{ userProfile.city?.title }}</p>
+  <p>Gender: {{ userProfile.sex === 1 ? 'Female' : (userProfile.sex === 2 ? 'Male' : 'Unknown') }}</p>
+  <p>Domain: {{ userProfile.domain }}</p>
+  <p><img [src]="userProfile.photo_100" alt="User Photo"></p>
 </div>

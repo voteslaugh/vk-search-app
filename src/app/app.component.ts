@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { TuiInputModule } from '@taiga-ui/kit';
 import { TuiButtonModule } from '@taiga-ui/core';
@@ -10,13 +11,14 @@ import { UserFriendsComponent } from './components/user-friends/user-friends.com
   templateUrl: './app.component.html',
   standalone: true,
   imports: [
+    CommonModule,
     FormsModule,
     TuiInputModule,
     TuiButtonModule,
     UserProfileComponent,
     UserFriendsComponent
   ],
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.less']
 })
 export class AppComponent {
   inputUserId: string = '';
@@ -26,18 +28,26 @@ export class AppComponent {
 
   confirmUserId(): void {
     console.log('User ID confirmed:', this.inputUserId);
-    this.confirmedUserId = this.inputUserId;
-    this.showProfile = false;
-    this.showFriends = false;
+    if (this.inputUserId) {
+      this.confirmedUserId = this.inputUserId;
+      this.showProfile = false;
+      this.showFriends = false;
+    } else {
+      console.error('User ID is empty!');
+    }
   }
 
   showProfileInfo(): void {
     console.log('Show Profile:', this.confirmedUserId);
-    this.showProfile = true;
+    if (this.confirmedUserId) {
+      this.showProfile = true;
+    }
   }
 
   showFriendsList(): void {
     console.log('Show Friends:', this.confirmedUserId);
-    this.showFriends = true;
+    if (this.confirmedUserId) {
+      this.showFriends = true;
+    }
   }
 }
